@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+type BloodTypes{
+  Ap  Int @default(0)
+  An  Int @default(0)
+  Bp  Int @default(0)
+  Bn  Int @default(0)
+  ABp Int @default(0)
+  ABn Int @default(0)
+  Op  Int @default(0)
+  On  Int @default(0)
+}
+
+type Coords{
+  lat Float
+  lng Float
+}
+type Address{
+  street String
+  city   String
+  state  String
+  zip    Int
+}
+model BloodBanks {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  bloodTypes  BloodTypes
+  phone       Int         @unique
+  coorinates  Coords
+  address     Address?
+  transaction Transaction[]
+}
+
+
+model Transaction{
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  bloodBank     BloodBanks @relation(fields: [bankId],references: [id])
+  user          Users      @relation(fields: [userId],references: [id])  
+  bankId        String     @db.ObjectId
+  userId        String     @db.ObjectId
+  bloodType     String
+  bloodQuantity Int
+  fulfilled     Boolean
+}
+
+model Users{
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  transaction   Transaction[]
+  bloodType     String
+  bloodQuantity Int
+}
+
+
+// model Post{
+//     id       String    @id @default(auto()) @map("_id") @db.ObjectId
+//   slug     String    @unique
+//   title    String
+//   body     String
+//   author   User      @relation(fields: [authorId], references: [id])
+//   authorId String    @db.ObjectId 
+
+// }
