@@ -17,7 +17,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIL7VTumEd-y8-pBlw90Gve53z6F_rToM&callback=Function.prototype"></Script> */}
       <body className={inter.className}>{children}</body>
     </html>
   );
