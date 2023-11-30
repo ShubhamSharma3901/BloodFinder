@@ -1,4 +1,5 @@
 "use client";
+import React, { MutableRefObject } from "react";
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   useLoadScript,
@@ -6,15 +7,21 @@ import {
   Marker,
   Libraries,
 } from "@react-google-maps/api";
-import Overlays from "./Overlays";
 
-type origin = {
-  lat: number | null;
-  lng: number | null;
-};
+interface MapProps {
+  origin: {
+    lat: number | null;
+    lng: number | null;
+  };
+  setOrigin: React.Dispatch<React.SetStateAction<{}>>;
+  mapRef: MutableRefObject<google.maps.Map>;
+}
 
-export default function GMap() {
-  const [origin, setOrigin] = useState<origin>();
+function GMap({ origin, setOrigin, mapRef }: MapProps) {
+  const center = useMemo(() => {
+    return origin;
+  }, [origin]);
+
   const [libraries] = useState<Libraries>(["places"]);
   const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
@@ -39,19 +46,9 @@ export default function GMap() {
     return <div>Error Loading</div>;
   }
 
-  return <Map origin={origin} setOrigin={setOrigin} />;
+  return <Map center={center} mapRef={mapRef} />;
 }
-function Map({ origin, setOrigin }: any) {
-  const mapRef = useRef<google.maps.Map>();
-
-  const originRef = useRef();
-
-  console.log(origin);
-
-  const center = useMemo(() => {
-    return origin;
-  }, [origin]);
-
+function Map({ center, mapRef }: any) {
   const options = useMemo(() => {
     return {
       mapId: "614bf3814cdd19f4",
@@ -65,17 +62,21 @@ function Map({ origin, setOrigin }: any) {
         center={center}
         zoom={17}
         mapContainerStyle={{ width: "100%", height: "100%", margin: "0 0 " }}
-        onLoad={useCallback((map: google.maps.Map) => {
-          mapRef.current = map;
-        }, [])}
+        onLoad={useCallback(
+          (map: google.maps.Map) => {
+            mapRef.current = map;
+          },
+          [mapRef]
+        )}
         options={options}>
         <Marker position={center} animation={google.maps.Animation.DROP} />
       </GoogleMap>
       {/* <Overlays
-        map={mapRef.current}
-        originRef={originRef}
-        setOrigin={setOrigin}
-      /> */}
+          map={mapRef.current}
+          originRef={originRef}
+          setOrigin={setOrigin}
+        /> */}
     </>
   );
 }
+export default GMap;
