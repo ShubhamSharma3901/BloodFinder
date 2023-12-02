@@ -60,7 +60,9 @@ export async function getBanks({ city }: { city: string }) {
   //   }
   try {
     const response = await prisma.bloodBanks.findRaw({
-      filter: { "address.city": city },
+      filter: {
+        "address.city": city,
+      },
     });
     return response;
   } catch (err) {

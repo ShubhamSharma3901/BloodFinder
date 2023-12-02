@@ -71,11 +71,6 @@ function Map({ center, mapRef }: any) {
         options={options}>
         <Marker position={center} animation={google.maps.Animation.DROP} />
       </GoogleMap>
-      {/* <Overlays
-          map={mapRef.current}
-          originRef={originRef}
-          setOrigin={setOrigin}
-        /> */}
     </>
   );
 }

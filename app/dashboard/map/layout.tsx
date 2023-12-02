@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import SideBar from "@/components/ui/SideBar";
 import { originContext } from "@/lib/contexts";
 import SideBarMobile from "@/components/ui/sidebar-mobile";
@@ -10,8 +10,10 @@ function Layout({ children }: { children: React.ReactNode }) {
     lng: null,
   });
   const mapRef = React.useRef<google.maps.Map>();
+  const [isLoad, setIsLoad] = useState(false);
   return (
-    <originContext.Provider value={{ origin, setOrigin, mapRef }}>
+    <originContext.Provider
+      value={{ origin, setOrigin, mapRef, isLoad, setIsLoad }}>
       <div className="h-full tablet:flex-col">
         <div className="hidden laptop:flex laptop:w-[30rem] laptop:inset-y-0 laptop:flex-col laptop:fixed laptop:z-[100] border">
           <SideBar />

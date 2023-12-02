@@ -2,11 +2,12 @@
 
 import { revalidateTag } from "next/cache";
 
-export const fetchBanks = async () => {
+export const fetchBanks = async (cityName: string) => {
+  console.log(cityName);
   const response = await fetch("http://localhost:3000/api/bloodBank", {
     method: "GET",
     headers: {
-      city: "Jaipur",
+      city: cityName,
     },
     next: {
       tags: ["bloodbank"],

@@ -1,0 +1,55 @@
+import Image from "next/image";
+import React from "react";
+import bloodBankImg from "@/public/bloodBank.jpg";
+import { Button } from "./button";
+import { PhoneCall } from "lucide-react";
+import Link from "next/link";
+
+interface CardProps {
+  name: string;
+  phone: number;
+  street: string;
+  state: string;
+  city: string;
+  zip: number;
+}
+
+function BanksCards({ name, phone, street, state, city, zip }: CardProps) {
+  return (
+    <div className="w-full h-full flex justify-center items-center ">
+      <span className="before:block before:-inset-1 before:content-[''] before:bg-red-600 before:w-1 before:h-[8rem] before:rounded-tr-lg before:rounded-br-lg"></span>
+      <div className="w-full px-7 h-full">
+        <div className="flex justify-start items-center gap-7">
+          <div>
+            <Image
+              src={bloodBankImg}
+              alt={"bloodBank_Img"}
+              className="w-[4rem] h-auto"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-xl font-semibold">{name}</h1>
+            <div>
+              <p className="text-[12px] font-light">{street}</p>
+              <p className="text-[12px] font-light">{city}</p>
+              <p className="text-[12px] font-light">
+                {state} - {zip}
+              </p>
+            </div>
+            <Link href={`tel:${phone}`}>
+              <Button
+                variant={"outline"}
+                className="flex justify-start items-center gap-2 border border-green-600 rounded-xl w-fit p-2">
+                <PhoneCall className="text-green-700" size={16} />
+                <p className="text-[12px] text-green-700">{phone}</p>
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <span className="before:block before:-inset-1 before:content-[''] before:bg-red-600 before:w-1 before:h-[8rem] before:rounded-tl-lg before:rounded-bl-lg"></span>
+    </div>
+  );
+}
+
+export default BanksCards;

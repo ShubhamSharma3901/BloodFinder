@@ -27,6 +27,7 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-geocode": "^1.0.0-alpha.1",
     "react-places-autocomplete": "^7.3.0",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7"

@@ -27,7 +27,9 @@ function SideBarMobile() {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 bg-white/95 overflow-scroll">
+      <SheetContent
+        side="left"
+        className="p-0 bg-white/95 overflow-scroll w-full">
         <div className="overflow-scroll">
           <Sidebar />
         </div>
