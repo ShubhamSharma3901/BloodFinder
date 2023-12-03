@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Script
+          type="text/javascript"
+          src={
+            "https://maps.googleapis.com/maps/api/js?key=undefined&amp;v=weekly&amp;libraries=places&amp;callback=initMap"
+          }
+        />
         {children}
         <Toaster />
       </body>
