@@ -39,7 +39,7 @@ export async function getAddressFromGeocode(
   setIsLoad: React.Dispatch<React.SetStateAction<boolean>>,
   bloodType: string
 ) {
-  setKey(`${process.env.GOOGLE_MAPS_KEY}`);
+  setKey(`${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`);
 
   geocode(RequestType.LATLNG, `${origin?.lat},${origin?.lng}`)
     .then(({ results }) => {
