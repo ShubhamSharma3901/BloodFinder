@@ -34,7 +34,6 @@
     "npm": "^10.2.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-geocode": "^1.0.0-alpha.1",
     "react-hook-form": "^7.48.2",
     "react-places-autocomplete": "^7.3.0",
     "tailwind-merge": "^2.0.0",
