@@ -21,6 +21,12 @@ interface bankProps {
     zip: number;
   };
   phone: number;
+  timings: {
+    open: string;
+    close: string;
+    off: string;
+  };
+  sectors: string;
 }
 
 export async function addBank({
@@ -29,6 +35,8 @@ export async function addBank({
   bloodTypes,
   address,
   phone,
+  timings,
+  sectors,
 }: bankProps) {
   try {
     await prisma.bloodBanks.create({
@@ -38,6 +46,8 @@ export async function addBank({
         bloodTypes: bloodTypes,
         address: address,
         phone: phone,
+        timings: timings,
+        sectors: sectors,
       },
     });
     const allBanks = await prisma.bloodBanks.findMany();
@@ -46,7 +56,13 @@ export async function addBank({
     console.log("Error in posting: ", err);
   }
 }
-export async function getBanks({ city }: { city: string }) {
+export async function getBanks({
+  city,
+  bloodType,
+}: {
+  city: string;
+  bloodType: string;
+}) {
   //   const client = new MongoClient(process.env.DATABASE_URL);
   //   try {
   //     await client.connect();
@@ -59,9 +75,11 @@ export async function getBanks({ city }: { city: string }) {
   //     console.log(er);
   //   }
   try {
+    const bloodTypes = `bloodTypes.${bloodType}`;
     const response = await prisma.bloodBanks.findRaw({
       filter: {
         "address.city": city,
+        [bloodTypes]: { $gte: 1 },
       },
     });
     return response;
@@ -76,6 +94,8 @@ export async function updateBanks({
   bloodTypes,
   phone,
   address,
+  timings,
+  sectors,
 }: bankProps) {
   try {
     await prisma.bloodBanks.update({
@@ -88,6 +108,8 @@ export async function updateBanks({
         bloodTypes: bloodTypes,
         phone: phone,
         address: address,
+        timings: timings,
+        sectors: sectors,
       },
     });
     const response = await prisma.bloodBanks.findUnique({

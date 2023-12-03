@@ -8,6 +8,7 @@ import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { useOrigin } from "@/lib/contexts";
 import { isLoaded } from "google-maps";
 import { Loader2 } from "lucide-react";
+import { toast } from "./use-toast";
 
 function Locations() {
   const { setOrigin, mapRef } = useOrigin();
@@ -23,6 +24,16 @@ function Locations() {
   function handleClickPosition(e) {
     // e.preventDefault();
     setIsLoading(true);
+    if (inputRef.current?.value === "") {
+      toast({
+        variant: "destructive",
+        title: "Oops!",
+        description: "Location cannot be empty.",
+        duration: 2000,
+      });
+      setIsLoading(false);
+      return;
+    }
     geocodeByAddress(inputRef.current?.value)
       .then((results) => {
         getLatLng(results[0]).then(({ lat, lng }) => {
@@ -55,26 +66,30 @@ function Locations() {
     return <div>Error Loading</div>;
   }
   return (
-    <div className="flex flex-col justify-center items-center space-y-2">
+    <div className="flex flex-col justify-center items-center space-y-2 bg-neutral-50/90 p-3 rounded-2xl shadow-inner">
       <div className="w-full flex gap-2">
         <Autocomplete className="w-[80%]">
           <Input
             ref={inputRef}
             disabled={isLoading}
             type="text"
-            className="bg-neutral-100"
+            className="bg-white shadow-sm rounded-xl hover:shadow-md transition"
             placeholder="Search for Locations"
+            required={true}
           />
         </Autocomplete>
         {isLoading ? (
-          <Button disabled className="bg-red-600 hover:bg-red-700 w-[30%]">
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Please wait
+          <Button
+            disabled
+            className="bg-red-600 hover:bg-red-700 w-[30%] rounded-xl flex gap-1">
+            <Loader2 className=" h-4 w-4 animate-spin" />
+            Searching
           </Button>
         ) : (
           <Button
-            className="bg-red-600 hover:bg-red-700 w-[30%]"
-            onClick={handleClickPosition}>
+            className="bg-red-600 hover:bg-red-700 w-[30%] shadow-sm rounded-xl hover:scale-95 transition hover:shadow-inner"
+            onClick={handleClickPosition}
+            disabled={inputRef.current === null}>
             Search
             <GpsFixedIcon className=" pl-2" />
           </Button>
@@ -91,7 +106,7 @@ function Locations() {
         ) : (
           <Button
             variant={"outline"}
-            className="border-red-200 hover:bg-red-700/10 w-full text-red-600 hover:text-red-700"
+            className="border-red-200 hover:bg-red-100/20 w-full text-red-600 hover:text-red-700 shadow-sm rounded-xl  transition hover:shadow-inner"
             onClick={handleClickCurrentPosition}>
             Current Location
           </Button>

@@ -14,7 +14,12 @@ import {
   RequestType,
 } from "react-geocode";
 
-export async function getAddressFromGeocode(origin, setBanks, setIsLoad) {
+export async function getAddressFromGeocode(
+  origin,
+  setBanks,
+  setIsLoad,
+  bloodType
+) {
   setKey(`${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`);
 
   geocode(RequestType.LATLNG, `${origin.lat},${origin.lng}`)
@@ -32,7 +37,7 @@ export async function getAddressFromGeocode(origin, setBanks, setIsLoad) {
         }
       );
       console.log(city);
-      fetchBanks(city).then((res) => {
+      fetchBanks(city, bloodType).then((res) => {
         setBanks(res);
         setIsLoad(true);
       });

@@ -11,9 +11,18 @@ function Layout({ children }: { children: React.ReactNode }) {
   });
   const mapRef = React.useRef<google.maps.Map>();
   const [isLoad, setIsLoad] = useState(false);
+  const [bloodType, setBloodType] = useState("");
   return (
     <originContext.Provider
-      value={{ origin, setOrigin, mapRef, isLoad, setIsLoad }}>
+      value={{
+        origin,
+        setOrigin,
+        mapRef,
+        isLoad,
+        setIsLoad,
+        bloodType,
+        setBloodType,
+      }}>
       <div className="h-full tablet:flex-col">
         <div className="hidden laptop:flex laptop:w-[30rem] laptop:inset-y-0 laptop:flex-col laptop:fixed laptop:z-[100] border">
           <SideBar />

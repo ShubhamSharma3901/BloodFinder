@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Locations from "./Locations";
 import Filters from "./filters";
 import BanksList from "./BanksList";
@@ -9,10 +9,11 @@ import { Skeleton } from "@mui/material";
 
 function SideBar() {
   const { isLoad } = useOrigin();
+
   return (
-    <div className="w-full h-full border-r border-white/10 text-black flex flex-col space-y-4 p-4 z-[102] overflow-y-scroll scroll-smooth">
-      <div className="my-7">
-        <p>BloodFinder</p>
+    <div className="w-full h-full border-r border-white/10 text-black flex flex-col gap-10 p-6 z-[102] overflow-y-scroll scroll-smooth">
+      <div className="mt-7">
+        <p className="text-3xl font-bold">BloodFinder</p>
       </div>
       <div className="">
         <Locations />
@@ -20,7 +21,7 @@ function SideBar() {
       <div>
         <Filters />
       </div>
-      <div className={cn("", !isLoad && "hidden")}>
+      <div className={cn("bg-white relative z-[-100]", !isLoad && "hidden")}>
         <BanksList />
       </div>
       <div className={cn("", isLoad && "flex")}>
