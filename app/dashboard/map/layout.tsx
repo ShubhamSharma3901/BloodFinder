@@ -11,7 +11,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   });
   const mapRef = React.useRef<google.maps.Map>();
   const [isLoad, setIsLoad] = useState(false);
-  const [bloodType, setBloodType] = useState("");
+  const [bloodType, setBloodType] = useState("On");
   return (
     <originContext.Provider
       value={{
