@@ -51,7 +51,7 @@ function BanksList() {
         console.log(city);
       })
       .catch((err) => {
-        console.log("Error aagya");
+        console.log("Error aagya", err);
       });
     action();
   }, [origin, bloodType, setIsLoad]);

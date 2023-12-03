@@ -4,16 +4,19 @@ import { revalidateTag } from "next/cache";
 
 export const fetchBanks = async (cityName: string, bloodType: string) => {
   console.log(cityName);
-  const response = await fetch("http://localhost:3000/api/bloodBank", {
-    method: "GET",
-    headers: {
-      city: cityName,
-      bloodType: bloodType,
-    },
-    next: {
-      tags: ["bloodbank"],
-    },
-  });
+  const response = await fetch(
+    "https://blood-finder-nine.vercel.app/api/bloodBank",
+    {
+      method: "GET",
+      headers: {
+        city: cityName,
+        bloodType: bloodType,
+      },
+      next: {
+        tags: ["bloodbank"],
+      },
+    }
+  );
   const finalRes = await response.json();
 
   return finalRes;
