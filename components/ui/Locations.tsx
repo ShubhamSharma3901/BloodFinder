@@ -22,7 +22,7 @@ function Locations() {
 
   function handleClickPosition() {
     setIsLoading(true);
-    if (inputRef.current?.value === "") {
+    if (String(inputRef.current?.value) === "") {
       toast({
         variant: "destructive",
         title: "Oops!",
@@ -32,7 +32,7 @@ function Locations() {
       setIsLoading(false);
       return;
     }
-    geocodeByAddress(inputRef?.current?.value)
+    geocodeByAddress(String(inputRef?.current?.value))
       .then((results) => {
         getLatLng(results[0]).then(({ lat, lng }) => {
           setOrigin({ lat, lng });
