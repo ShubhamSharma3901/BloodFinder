@@ -42,7 +42,17 @@ function BanksList() {
 
   useEffect(() => {
     setIsLoad(false);
-    getAddressFromGeocode(origin, setBanks, setIsLoad, bloodType);
+    getAddressFromGeocode(origin, setBanks, setIsLoad, bloodType)
+      .then((city) => {
+        fetchBanks(city, bloodType).then((res) => {
+          setBanks(res);
+          setIsLoad(true);
+        });
+        console.log(city);
+      })
+      .catch((err) => {
+        console.log("Error aagya");
+      });
     action();
   }, [origin, bloodType, setIsLoad]);
 

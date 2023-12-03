@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { fetchBanks } from "@/app/actions";
 import { setKey, geocode, RequestType } from "react-geocode";
+import { useState } from "react";
 
 export async function getAddressFromGeocode(
   origin: { lat: number; lng: number },
@@ -40,30 +41,40 @@ export async function getAddressFromGeocode(
   bloodType: string
 ) {
   setKey(String(process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY));
-  geocode(RequestType.LATLNG, `${origin.lat},${origin.lng}`)
-    .then(({ results }) => {
-      const { city } = results[0].address_components.reduce(
-        (
-          acc: { city: string },
-          component: { types: string; long_name: string }
-        ) => {
-          if (component.types.includes("locality"))
-            acc.city = component.long_name;
+  const { results } = await geocode(
+    RequestType.LATLNG,
+    `${origin.lat},${origin.lng}`
+  );
+  const { city } = results[0].address_components.reduce(
+    (
+      acc: { city: string },
+      component: { types: string; long_name: string }
+    ) => {
+      if (component.types.includes("locality")) acc.city = component.long_name;
 
-          return acc;
-        }
-      );
-      console.log(city);
-      fetchBanks(city, bloodType).then((res) => {
-        setBanks(res);
-        setIsLoad(true);
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      return acc;
+    }
+  );
+  return city;
 }
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+// .then(({ results }) => {
+// const { city } = results[0].address_components.reduce(
+//   (
+//     acc: { city: string },
+//     component: { types: string; long_name: string }
+//   ) => {
+//     if (component.types.includes("locality"))
+//       acc.city = component.long_name;
+
+//     return acc;
+//   }
+// );
+//   return city;
+// })
+// .catch((err) => {
+//   console.log(err);
+// });
