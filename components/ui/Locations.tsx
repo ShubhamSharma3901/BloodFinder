@@ -18,7 +18,7 @@ function Locations() {
   const map: google.maps.Map | undefined = mapRef.current;
 
   const [libraries] = useState<Libraries>(["places"]);
-  const mapsKey = String(process.env.GOOGLE_MAPS_KEY);
+  const mapsKey = String(process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY);
 
   function handleClickPosition() {
     setIsLoading(true);

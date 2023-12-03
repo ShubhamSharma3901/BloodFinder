@@ -21,7 +21,7 @@ function GMap({ origin, setOrigin, mapRef }: MapProps) {
 
   const [libraries] = useState<Libraries>(["places"]);
 
-  const mapsKey = String(process.env.GOOGLE_MAPS_KEY);
+  const mapsKey = String(process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY);
 
   console.log(mapsKey);
 
