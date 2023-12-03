@@ -23,6 +23,8 @@ function GMap({ origin, setOrigin, mapRef }: MapProps) {
 
   const mapsKey = String(process.env.GOOGLE_MAPS_KEY);
 
+  console.log(mapsKey);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
       setOrigin({

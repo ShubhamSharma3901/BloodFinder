@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Script
+        {/* <Script
           type="text/javascript"
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_KEY}&amp;v=weekly&amp;libraries=places&amp;callback=initMap`}
-        />
+        /> */}
         {children}
         <Toaster />
       </body>
