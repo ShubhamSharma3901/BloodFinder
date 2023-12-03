@@ -1,18 +1,11 @@
 "use client";
-import React, {
-  MutableRefObject,
-  Ref,
-  RefAttributes,
-  useRef,
-  useState,
-} from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "./input";
 import { Button } from "./button";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import { Autocomplete, Libraries, useLoadScript } from "@react-google-maps/api";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { useOrigin } from "@/lib/contexts";
-import { isLoaded } from "google-maps";
 import { Loader2 } from "lucide-react";
 import { toast } from "./use-toast";
 
