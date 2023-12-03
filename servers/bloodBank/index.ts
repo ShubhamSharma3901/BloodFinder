@@ -63,17 +63,6 @@ export async function getBanks({
   city: string;
   bloodType: string;
 }) {
-  //   const client = new MongoClient(process.env.DATABASE_URL);
-  //   try {
-  //     await client.connect();
-  //     const database = await client.db("BloodFinder"); // Choose a name for your database
-
-  //     const collection = await database.collection("BloodBanks");
-  //     const response = await collection.find({ "address.city": city }).toArray();
-  //     return response;
-  //   } catch (er) {
-  //     console.log(er);
-  //   }
   try {
     const bloodTypes = `bloodTypes.${bloodType}`;
     const response = await prisma.bloodBanks.findRaw({

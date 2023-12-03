@@ -24,10 +24,13 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const city = await req.headers.get("city");
-    const bloodType = await req.headers.get("bloodType");
+    let bloodType = await req.headers.get("bloodType");
 
-    if (city === null || bloodType === null) {
+    if (city === null) {
       return new NextResponse("Invalid Headers", { status: 500 });
+    }
+    if (bloodType === null) {
+      bloodType = "On";
     }
     const response = await getBanks({ city, bloodType });
     return NextResponse.json(response);
