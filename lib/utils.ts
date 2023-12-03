@@ -38,8 +38,6 @@ export async function getAddressFromGeocode(
   setIsLoad: React.Dispatch<React.SetStateAction<boolean>>,
   bloodType: string
 ) {
-  setKey(`${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`);
-
   fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${origin?.lat},${origin?.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`
   )
