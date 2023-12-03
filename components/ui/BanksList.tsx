@@ -7,7 +7,35 @@ import { getAddressFromGeocode } from "@/lib/utils";
 import BanksCards from "./BanksCards";
 
 function BanksList() {
-  const [banks, setBanks] = useState([]);
+  const [banks, setBanks] = useState<
+    Array<{
+      name: string;
+      coords: { lat: number; lng: number };
+      bloodTypes: {
+        Ap: number;
+        An: number;
+        Bp: number;
+        Bn: number;
+        ABp: number;
+        ABn: number;
+        Op: number;
+        On: number;
+      };
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        zip: number;
+      };
+      phone: number;
+      timings: {
+        open: string;
+        close: string;
+        off: string;
+      };
+      sectors: string;
+    }>
+  >([]);
   const { origin, setIsLoad, bloodType } = useOrigin();
 
   console.log(origin);
@@ -16,7 +44,7 @@ function BanksList() {
     setIsLoad(false);
     getAddressFromGeocode(origin, setBanks, setIsLoad, bloodType);
     action();
-  }, [origin, bloodType]);
+  }, [origin, bloodType, setIsLoad]);
 
   return (
     <div>
@@ -31,7 +59,7 @@ function BanksList() {
           banks?.map((bank) => {
             return (
               <section
-                key={bank.id}
+                key={bank?.phone}
                 className="border rounded-2xl w-full flex justify-center items-center relative h-fit py-5 hover:scale-105 cursor-pointer transition ease-in-out">
                 <BanksCards
                   name={bank?.name}

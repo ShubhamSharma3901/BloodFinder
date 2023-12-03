@@ -1,5 +1,11 @@
 "use client";
-import React, { MutableRefObject, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  Ref,
+  RefAttributes,
+  useRef,
+  useState,
+} from "react";
 import { Input } from "./input";
 import { Button } from "./button";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
@@ -15,14 +21,13 @@ function Locations() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const inputRef = useRef<HTMLInputElement>();
-  const map: google.maps.Map = mapRef.current;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const map: google.maps.Map | undefined = mapRef.current;
 
   const [libraries] = useState<Libraries>(["places"]);
   const mapsKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
-  function handleClickPosition(e) {
-    // e.preventDefault();
+  function handleClickPosition() {
     setIsLoading(true);
     if (inputRef.current?.value === "") {
       toast({
@@ -34,7 +39,7 @@ function Locations() {
       setIsLoading(false);
       return;
     }
-    geocodeByAddress(inputRef.current?.value)
+    geocodeByAddress(inputRef?.current?.value)
       .then((results) => {
         getLatLng(results[0]).then(({ lat, lng }) => {
           setOrigin({ lat, lng });
@@ -46,8 +51,7 @@ function Locations() {
       .catch((error) => console.error(error));
   }
 
-  function handleClickCurrentPosition(e) {
-    // e.preventDefault();
+  function handleClickCurrentPosition() {
     setIsLoading(true);
     navigator.geolocation.getCurrentPosition((pos) => {
       setIsLoading(false);

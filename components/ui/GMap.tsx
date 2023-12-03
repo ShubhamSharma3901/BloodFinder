@@ -9,12 +9,9 @@ import {
 } from "@react-google-maps/api";
 
 interface MapProps {
-  origin: {
-    lat: number | null;
-    lng: number | null;
-  };
-  setOrigin: React.Dispatch<React.SetStateAction<{}>>;
-  mapRef: MutableRefObject<google.maps.Map>;
+  origin: { lat: number; lng: number };
+  setOrigin: React.Dispatch<React.SetStateAction<{ lat: number; lng: number }>>;
+  mapRef: MutableRefObject<google.maps.Map | undefined>;
 }
 
 function GMap({ origin, setOrigin, mapRef }: MapProps) {
@@ -32,7 +29,7 @@ function GMap({ origin, setOrigin, mapRef }: MapProps) {
         lng: pos.coords.longitude,
       });
     });
-  }, []);
+  }, [setOrigin]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: mapsKey,

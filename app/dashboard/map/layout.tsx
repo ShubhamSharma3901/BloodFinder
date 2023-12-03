@@ -5,9 +5,9 @@ import { originContext } from "@/lib/contexts";
 import SideBarMobile from "@/components/ui/sidebar-mobile";
 
 function Layout({ children }: { children: React.ReactNode }) {
-  const [origin, setOrigin] = React.useState({
-    lat: null,
-    lng: null,
+  const [origin, setOrigin] = React.useState<{ lat: number; lng: number }>({
+    lat: 0,
+    lng: 0,
   });
   const mapRef = React.useRef<google.maps.Map>();
   const [isLoad, setIsLoad] = useState(false);

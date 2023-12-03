@@ -15,24 +15,54 @@ import {
 } from "react-geocode";
 
 export async function getAddressFromGeocode(
-  origin,
-  setBanks,
-  setIsLoad,
-  bloodType
+  origin: { lat: number; lng: number },
+  setBanks: React.Dispatch<
+    React.SetStateAction<
+      Array<{
+        name: string;
+        coords: { lat: number; lng: number };
+        bloodTypes: {
+          Ap: number;
+          An: number;
+          Bp: number;
+          Bn: number;
+          ABp: number;
+          ABn: number;
+          Op: number;
+          On: number;
+        };
+        address: {
+          street: string;
+          city: string;
+          state: string;
+          zip: number;
+        };
+        phone: number;
+        timings: {
+          open: string;
+          close: string;
+          off: string;
+        };
+        sectors: string;
+      }>
+    >
+  >,
+  setIsLoad: React.Dispatch<React.SetStateAction<boolean>>,
+  bloodType: string
 ) {
   setKey(`${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`);
 
-  geocode(RequestType.LATLNG, `${origin.lat},${origin.lng}`)
+  geocode(RequestType.LATLNG, `${origin?.lat},${origin?.lng}`)
     .then(({ results }) => {
       // const address = results[0].formatted_address;
       const { city } = results[0].address_components.reduce(
-        (acc, component) => {
-          if (component.types.includes("locality", "political"))
+        (
+          acc: { city: string },
+          component: { types: string; long_name: string }
+        ) => {
+          if (component.types.includes("locality"))
             acc.city = component.long_name;
-          //   else if (component.types.includes("administrative_area_level_1"))
-          //     acc.state = component.long_name;
-          //   else if (component.types.includes("country"))
-          //     acc.country = component.long_name;
+
           return acc;
         }
       );
