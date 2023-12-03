@@ -1,18 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { fetchBanks } from "@/app/actions";
-import {
-  setKey,
-  setDefaults,
-  setLanguage,
-  setRegion,
-  fromAddress,
-  fromLatLng,
-  fromPlaceId,
-  setLocationType,
-  geocode,
-  RequestType,
-} from "react-geocode";
+import { setKey, geocode, RequestType } from "react-geocode";
 
 export async function getAddressFromGeocode(
   origin: { lat: number; lng: number },
@@ -50,7 +39,7 @@ export async function getAddressFromGeocode(
   setIsLoad: React.Dispatch<React.SetStateAction<boolean>>,
   bloodType: string
 ) {
-  setKey(`${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}`);
+  setKey(`${process.env.GOOGLE_MAPS_KEY}`);
 
   geocode(RequestType.LATLNG, `${origin?.lat},${origin?.lng}`)
     .then(({ results }) => {
