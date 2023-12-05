@@ -21,7 +21,7 @@ function SideBar() {
       <div>
         <Filters />
       </div>
-      <div className={cn("bg-white relative z-[-100]", !isLoad && "hidden")}>
+      <div className={cn("bg-white", !isLoad && "hidden")}>
         <BanksList />
       </div>
       <div className={cn("", isLoad && "flex")}>

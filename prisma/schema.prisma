@@ -42,7 +42,7 @@ model BloodBanks {
   name        String
   bloodTypes  BloodTypes
   phone       Int         @unique
-  coorinates  Coords
+  coordinates  Coords
   timings     Timings
   sectors     String
   address     Address

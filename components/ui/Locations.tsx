@@ -71,7 +71,7 @@ function Locations() {
             ref={inputRef}
             disabled={isLoading}
             type="text"
-            className="bg-white shadow-sm rounded-xl hover:shadow-md transition"
+            className="bg-white shadow-sm rounded-xl hover:shadow-md transition text-ellipsis"
             placeholder="Search for Locations"
             required={true}
           />

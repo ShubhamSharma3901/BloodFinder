@@ -36,7 +36,8 @@ function BanksList() {
       sectors: string;
     }>
   >([]);
-  const { origin, setIsLoad, bloodType } = useOrigin();
+  const { origin, setIsLoad, bloodType, setBanksCoords, banksCoords } =
+    useOrigin();
 
   console.log(origin);
 
@@ -47,6 +48,7 @@ function BanksList() {
         fetchBanks(city, bloodType).then((res) => {
           setBanks(res);
           setIsLoad(true);
+          setBanksCoords(res);
         });
         console.log(city);
       })
@@ -54,7 +56,7 @@ function BanksList() {
         console.log("Error aagya", err);
       });
     action();
-  }, [origin, bloodType, setIsLoad]);
+  }, [origin, bloodType, setIsLoad, setBanksCoords]);
 
   return (
     <div>

@@ -42,7 +42,7 @@ export async function addBank({
     await prisma.bloodBanks.create({
       data: {
         name: name,
-        coorinates: coords,
+        coordinates: coords,
         bloodTypes: bloodTypes,
         address: address,
         phone: phone,
@@ -93,7 +93,7 @@ export async function updateBanks({
       },
       data: {
         name: name,
-        coorinates: coords,
+        coordinates: coords,
         bloodTypes: bloodTypes,
         phone: phone,
         address: address,
