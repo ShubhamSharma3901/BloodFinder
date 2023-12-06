@@ -32,7 +32,7 @@ export async function addUser({
   UID,
 }: userParams) {
   try {
-    await prisma.users.create({
+    await prisma.usersModel.create({
       data: {
         name,
         email,
@@ -44,7 +44,7 @@ export async function addUser({
         age,
       },
     });
-    const response = await prisma.users.findMany({});
+    const response = await prisma.usersModel.findMany({});
     return response;
   } catch (err) {
     return err;
@@ -53,7 +53,7 @@ export async function addUser({
 
 export async function getUser(UID: number) {
   try {
-    const response = await prisma.users.findUnique({
+    const response = await prisma.usersModel.findUnique({
       where: {
         UID: UID,
       },
@@ -76,7 +76,7 @@ export async function updateUser({
   UID,
 }: userParams) {
   try {
-    const response = await prisma.users.update({
+    const response = await prisma.usersModel.update({
       where: {
         UID: UID,
       },
