@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, coords, bloodTypes, address, phone, timings, sectors } =
+    const { name, coords, bloodTypes, address, phone, sectors } =
       await req.json();
     const response = await addBank({
       name,
@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
       bloodTypes,
       address,
       phone,
-      timings,
       sectors,
     });
     return NextResponse.json({ response });
@@ -41,7 +40,7 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const { name, coords, bloodTypes, address, phone, timings, sectors } =
+    const { name, coords, bloodTypes, address, phone, sectors } =
       await req.json();
     const response = await updateBanks({
       name,
@@ -49,7 +48,6 @@ export async function PUT(req: NextRequest) {
       bloodTypes,
       address,
       phone,
-      timings,
       sectors,
     });
     return NextResponse.json({ response });

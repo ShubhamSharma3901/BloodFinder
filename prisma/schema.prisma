@@ -32,19 +32,19 @@ type Address{
   zip    Int
 }
 
-type Timings{
-  open String
-  close String
-  off String
+type DOB{
+  date Int
+  month Int
+  year Int
 }
+
 model BloodBanks {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   bloodTypes  BloodTypes
   phone       Int         @unique
   coordinates  Coords
-  timings     Timings
-  sectors     String
+  sectors     String?
   address     Address
   transaction Transaction[]
 }
@@ -64,14 +64,16 @@ model Transaction{
 model Users{
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   transaction   Transaction[]
-  bloodType     String
-  bloodQuantity Int
+  bloodType     String?
+  bloodQuantity Int?
   name          String
   email         String
   phone         Int 
   UID           Int             @unique
   address       Address
   gender        String
+  age           Int
+  dob           DOB      
 }
 
 

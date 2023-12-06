@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma";
-import { MongoClient } from "mongodb";
+
 
 interface bankProps {
   name: string;
@@ -21,11 +21,6 @@ interface bankProps {
     zip: number;
   };
   phone: number;
-  timings: {
-    open: string;
-    close: string;
-    off: string;
-  };
   sectors: string;
 }
 
@@ -35,7 +30,6 @@ export async function addBank({
   bloodTypes,
   address,
   phone,
-  timings,
   sectors,
 }: bankProps) {
   try {
@@ -46,7 +40,6 @@ export async function addBank({
         bloodTypes: bloodTypes,
         address: address,
         phone: phone,
-        timings: timings,
         sectors: sectors,
       },
     });
@@ -83,7 +76,6 @@ export async function updateBanks({
   bloodTypes,
   phone,
   address,
-  timings,
   sectors,
 }: bankProps) {
   try {
@@ -97,7 +89,6 @@ export async function updateBanks({
         bloodTypes: bloodTypes,
         phone: phone,
         address: address,
-        timings: timings,
         sectors: sectors,
       },
     });
