@@ -6,6 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { PhoneCall } from "lucide-react";
 import Link from "next/link";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 interface CardProps {
   name: string;
   phone: number;
@@ -68,11 +77,35 @@ function BanksCards({
                   <p className="text-[12px] text-green-700">{phone}</p>
                 </Button>
               </Link>
-              <Button
-                variant={"secondary"}
-                className="rounded-xl bg-violet-100 text-violet-800 hover:bg-violet-200 hover:scale-95 hover:shadow-inner transition">
-                <p className="text-[12px]">Get Allotment</p>
-              </Button>
+              <div className="relative w-full h-full">
+                <Dialog>
+                  <DialogTrigger>
+                    <Button
+                      variant={"secondary"}
+                      className="rounded-xl bg-violet-100 text-violet-800 hover:bg-violet-200 hover:scale-95 hover:shadow-inner transition">
+                      <p className="text-[12px]">Get Allotment</p>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="absolute z-[200] phone:bg-violet-100 text-violet-800 rounded-2xl shadow-2xl">
+                    <DialogHeader>
+                      <DialogTitle className="text-xl">
+                        Please Confirm
+                      </DialogTitle>
+                      <DialogDescription className="text-violet-900/70 py-3 flex flex-col gap-[1.65rem]">
+                        According to Government Guidelines, You can be only
+                        alloted 1 Unit of Blood from a Blood Bank
+                        <Link href="http://localhost:3000/users/payments">
+                          <Button
+                            variant={"secondary"}
+                            className="rounded-xl w-full bg-violet-800 text-violet-100 hover:bg-violet-900  hover:shadow-none shadow-xl transition">
+                            <p className="text-[12px]">Get Allotment</p>
+                          </Button>
+                        </Link>
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
         </div>

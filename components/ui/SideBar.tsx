@@ -7,12 +7,16 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { Skeleton } from "@mui/material";
 
+import logo from "@/public/logo.png";
+import Image from "next/image";
+
 function SideBar() {
   const { isLoad } = useOrigin();
 
   return (
     <div className="w-full h-full border-r border-white/10 text-black flex flex-col gap-10 p-6 z-[102] overflow-y-scroll scroll-smooth">
-      <div className="mt-7">
+      <div className="mt-7 flex items-center">
+        <Image src={logo} alt={"logo"} className="w-[5rem] h-auto" />
         <p className="text-3xl font-bold">BloodFinder</p>
       </div>
       <div className="">

@@ -53,7 +53,7 @@ model BloodBanks {
 model Transaction{
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
   bloodBank     BloodBanks @relation(fields: [bankId],references: [id])
-  user          Users      @relation(fields: [userId],references: [id])  
+  user          UsersModel      @relation(fields: [userId],references: [id])  
   bankId        String     @db.ObjectId
   userId        String     @db.ObjectId
   bloodType     String
@@ -61,8 +61,10 @@ model Transaction{
   fulfilled     Boolean
 }
 
-model Users{
+model UsersModel{
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  // sessionUser   User            @relation(fields: [userId],references: [id])
+  // userId        String          @db.ObjectId @unique
   transaction   Transaction[]
   bloodType     String?
   bloodQuantity Int?
@@ -76,13 +78,63 @@ model Users{
   dob           DOB      
 }
 
+            //-----------------------------------------Authentication Models-------------------------------------------
 
-// model Post{
-//     id       String    @id @default(auto()) @map("_id") @db.ObjectId
-//   slug     String    @unique
-//   title    String
-//   body     String
-//   author   User      @relation(fields: [authorId], references: [id])
-//   authorId String    @db.ObjectId 
+enum Roles{
+  ADMIN
+  USER
+  BloodBank
+}
+model Account {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String  @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.String
+  access_token       String? @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.String
+  session_state      String?
 
-// }
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique @map("session_token")
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  role          Roles     @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+  // users         Users[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String   
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
