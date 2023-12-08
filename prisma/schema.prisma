@@ -63,8 +63,8 @@ model Transaction{
 
 model UsersModel{
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  // sessionUser   User            @relation(fields: [userId],references: [id])
-  // userId        String          @db.ObjectId @unique
+  userId        String?          @db.ObjectId @unique
+  user          User?           @relation(fields: [userId],references: [id])
   transaction   Transaction[]
   bloodType     String?
   bloodQuantity Int?
@@ -124,8 +124,8 @@ model User {
   role          Roles     @default(USER)
   accounts      Account[]
   sessions      Session[]
-  // users         Users[]
-
+  users         UsersModel[]
+  payments      UserSubscription[]
   @@map("users")
 }
 
@@ -137,4 +137,14 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+
+// --------------------------------Stripe--------------------------------
+model UserSubscription {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  status String? @map(name: "status")
+  users  User @relation(fields: [userId],references: [id])
 }

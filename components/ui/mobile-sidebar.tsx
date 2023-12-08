@@ -38,7 +38,8 @@ function MobileSB({
           variant={"ghost"}
           onClick={() => {
             setOpen(true);
-          }}>
+          }}
+          size={"sm"}>
           <MenuIcon className="text-black font-bold" />
         </Button>
       </div>

@@ -70,22 +70,29 @@ function BanksList() {
         ) : (
           banks?.map((bank) => {
             return (
-              <section
-                key={bank?.phone}
-                className="border rounded-2xl w-full flex justify-center items-center relative h-fit py-5 hover:scale-105 cursor-pointer transition ease-in-out">
-                <BanksCards
-                  name={bank?.name}
-                  phone={bank?.phone}
-                  street={bank?.address?.street}
-                  state={bank?.address?.state}
-                  city={bank?.address?.city}
-                  zip={bank?.address?.zip}
-                  timings={bank?.timings}
-                  sectors={bank?.sectors}
-                />
-              </section>
+              <>
+                <section
+                  key={bank?.phone}
+                  className="border rounded-2xl w-full flex justify-center items-center relative h-fit py-5 hover:scale-105 cursor-pointer transition ease-in-out">
+                  <BanksCards
+                    name={bank?.name}
+                    phone={bank?.phone}
+                    street={bank?.address?.street}
+                    state={bank?.address?.state}
+                    city={bank?.address?.city}
+                    zip={bank?.address?.zip}
+                    timings={bank?.timings}
+                    sectors={bank?.sectors}
+                  />
+                </section>
+              </>
             );
           })
+        )}
+        {banks.length !== 0 && (
+          <p className="text-center w-full text-sm font-light text-neutral-400">
+            No more banks to show
+          </p>
         )}
       </ScrollArea>
     </div>

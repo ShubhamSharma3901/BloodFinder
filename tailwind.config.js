@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -18,6 +19,7 @@ module.exports = {
     extend: {
       screens: {
         phone: "275px",
+        xlPhone: "420px",
         tablet: "750px",
         laptop: "1290px",
         xlLaptop: "1520px",

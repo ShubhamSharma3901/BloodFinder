@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useOrigin } from "@/lib/contexts";
 
 interface CardProps {
   name: string;
@@ -37,15 +38,15 @@ function BanksCards({
   state,
   city,
   zip,
-  timings,
   sectors,
 }: CardProps) {
+  const { bloodType } = useOrigin();
   return (
     <div className="w-full h-full flex justify-center items-center">
       <span className="before:block before:-inset-1 before:content-[''] before:bg-red-600 before:w-1 before:h-[8rem] before:rounded-tr-lg before:rounded-br-lg"></span>
       <div className="w-full px-7 h-full">
         <div className="flex justify-start items-center gap-7">
-          <div>
+          <div className="phone:hidden xlPhone:block">
             <Image
               src={bloodBankImg}
               alt={"bloodBank_Img"}
@@ -54,7 +55,7 @@ function BanksCards({
           </div>
           <div className="flex flex-col gap-3">
             <div className="flex justify-start items-center gap-3">
-              <h1 className="text-xl font-semibold">{name}</h1>
+              <h1 className="text-xl phone:text-lg font-semibold">{name}</h1>
               <Badge
                 variant={"secondary"}
                 className=" bg-slate-200 text-slate-600">
@@ -62,9 +63,13 @@ function BanksCards({
               </Badge>
             </div>
             <div>
-              <p className="text-[12px] font-light">{street}</p>
-              <p className="text-[12px] font-light">{city}</p>
-              <p className="text-[12px] font-light">
+              <p className="tablet:text-[12px] phone:text-[10px] font-light">
+                {street}
+              </p>
+              <p className="tablet:text-[12px]  phone:text-[10px] font-light">
+                {city}
+              </p>
+              <p className="tablet:text-[12px]  phone:text-[10px] font-light">
                 {state} - {zip}
               </p>
             </div>
@@ -94,7 +99,8 @@ function BanksCards({
                       <DialogDescription className="text-violet-900/70 py-3 flex flex-col gap-[1.65rem]">
                         According to Government Guidelines, You can be only
                         alloted 1 Unit of Blood from a Blood Bank
-                        <Link href="http://localhost:3000/users/payments">
+                        <Link
+                          href={`${process.env.NEXT_PUBLIC_APP_URL}/users/payments?name=${name}&bloodType=${bloodType}`}>
                           <Button
                             variant={"secondary"}
                             className="rounded-xl w-full bg-violet-800 text-violet-100 hover:bg-violet-900  hover:shadow-none shadow-xl transition">

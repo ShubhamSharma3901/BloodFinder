@@ -47,7 +47,7 @@ export async function addUser({
     const response = await prisma.usersModel.findMany({});
     return response;
   } catch (err) {
-    return err;
+    console.log(err);
   }
 }
 
