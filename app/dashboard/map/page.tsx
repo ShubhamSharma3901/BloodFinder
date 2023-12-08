@@ -8,7 +8,7 @@ function Page() {
   const { origin, setOrigin, mapRef } = useOrigin();
   return (
     <>
-      <div className={cn("w-full h-[100vh] ")}>
+      <div className={cn("w-full h-full ")}>
         <GMap origin={origin} setOrigin={setOrigin} mapRef={mapRef} />
       </div>
     </>

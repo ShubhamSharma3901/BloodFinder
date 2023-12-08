@@ -6,9 +6,14 @@ import {
   GoogleMap,
   Marker,
   Libraries,
+  InfoBox,
+  InfoWindow,
+  MarkerF,
+  InfoWindowF,
 } from "@react-google-maps/api";
 import { useOrigin } from "@/lib/contexts";
-import { DropletsIcon } from "lucide-react";
+import bloodBank from "@/public/bloodBank.jpg";
+import { Circle } from "lucide-react";
 
 interface MapProps {
   origin: { lat: number; lng: number };
@@ -93,6 +98,16 @@ function Map({
       minZoom: 12,
     };
   }, []);
+
+  const [activeMarker, setActiveMarker] = useState<number | null>();
+
+  const handleActiveMarker = (marker: number) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
+
   return (
     <>
       <GoogleMap
@@ -106,19 +121,33 @@ function Map({
           [mapRef]
         )}
         options={options}>
-        <Marker position={center} animation={google.maps.Animation.DROP} />
-
-        {banksCoords.map((bank) => {
+        <MarkerF
+          position={center}
+          animation={google.maps.Animation.DROP}
+          icon={{
+            url: "https://cdn-icons-png.flaticon.com/512/1673/1673221.png",
+            scaledSize: new google.maps.Size(50, 50),
+          }}
+        />
+        {banksCoords.map((bank, id) => {
           console.log(bank);
           return (
             <>
-              <Marker
+              <MarkerF
+                key={id}
                 position={bank?.coordinates}
                 animation={google.maps.Animation.DROP}
                 title={bank?.name}
-                label={bank?.name}
                 clickable={true}
-              />
+                onClick={() => handleActiveMarker(id)}>
+                {activeMarker === id ? (
+                  <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                    <div>
+                      <p>{bank.name}</p>
+                    </div>
+                  </InfoWindowF>
+                ) : null}
+              </MarkerF>
             </>
           );
         })}

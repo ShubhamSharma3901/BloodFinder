@@ -5,6 +5,8 @@ import { originContext } from "@/lib/contexts";
 import SideBarMobile from "@/components/ui/sidebar-mobile";
 import MobileSB from "@/components/ui/mobile-sidebar";
 import { cn } from "@/lib/utils";
+import logo from "@/public/logo.png";
+import Image from "next/image";
 
 function Layout({ children }: { children: React.ReactNode }) {
   const [origin, setOrigin] = React.useState<{ lat: number; lng: number }>({
@@ -59,7 +61,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         banksCoords,
         setBanksCoords,
       }}>
-      <div className="h-full tablet:flex-col">
+      <div className="h-[100vh] tablet:flex-col">
         <div className="hidden laptop:flex laptop:w-[30rem] laptop:inset-y-0 laptop:flex-col laptop:fixed laptop:z-[100] border">
           <SideBar />
         </div>
@@ -72,12 +74,17 @@ function Layout({ children }: { children: React.ReactNode }) {
             <MobileSB setOpen={setOpen} open={open}>
               <SideBar />
             </MobileSB>
-            <div className="w-full font-bold text-2xl text-center absolute top-6">
-              BloodFinder
+            <div className="w-full font-bold text-2xl text-center absolute tablet:top-2 phone:top-[0.9rem] flex justify-center items-center">
+              <Image
+                src={logo}
+                alt={"logo"}
+                className="tablet:w-[4rem] phone:w-[3rem] h-auto"
+              />
+              <span className="text-xl"> BloodFinder</span>
             </div>
           </div>
         </div>
-        <div className="laptop:pl-[30rem]">{children}</div>
+        <div className="laptop:pl-[30rem] h-full">{children}</div>
       </div>
     </originContext.Provider>
   );
