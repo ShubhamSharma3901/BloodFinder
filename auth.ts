@@ -5,6 +5,7 @@ import { prisma } from "@/prisma";
 import EmailProvider from "next-auth/providers/email";
 import { Resend } from "resend";
 import MagicLinkEmail from "@/emails/MagicLinkEmail";
+import { renderAsync } from "@react-email/components";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
@@ -52,12 +53,15 @@ export const { handlers, auth } = NextAuth({
         const { identifier, url } = params;
         const { host } = new URL(url);
 
+        //! Below Line is Important in RESEND v2 as this will fix the webpack error during builds
+        const rct = await renderAsync(MagicLinkEmail({ url, host }));
+
         await resend.emails.send({
           from: "onboarding@resend.dev",
           to: [identifier],
           subject: `Log into ${host}`,
           text: `Sign into ${host}`,
-          react: MagicLinkEmail({ url, host }),
+          react: rct,
         });
       },
     }),
