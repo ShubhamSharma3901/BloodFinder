@@ -75,6 +75,7 @@ function BanksList() {
                   key={bank?.phone}
                   className="border rounded-2xl w-full flex justify-center items-center relative h-fit py-5 hover:scale-105 cursor-pointer transition ease-in-out">
                   <BanksCards
+                    key={bank?.phone}
                     name={bank?.name}
                     phone={bank?.phone}
                     street={bank?.address?.street}

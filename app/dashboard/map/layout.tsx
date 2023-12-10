@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import SideBar from "@/components/ui/SideBar";
 import { originContext } from "@/lib/contexts";
-import SideBarMobile from "@/components/ui/sidebar-mobile";
 import MobileSB from "@/components/ui/mobile-sidebar";
 import { cn } from "@/lib/utils";
 import logo from "@/public/logo.png";

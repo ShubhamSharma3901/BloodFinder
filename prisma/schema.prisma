@@ -40,13 +40,16 @@ type DOB{
 
 model BloodBanks {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  sessionUserId  String?     @db.ObjectId @unique
+  user       User?         @relation(fields: [sessionUserId],references: [id])
   name        String
   bloodTypes  BloodTypes
-  phone       Int         @unique
+  phone       Int        
   coordinates  Coords
   sectors     String?
   address     Address
   transaction Transaction[]
+
 }
 
 
@@ -121,11 +124,13 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  role          Roles     @default(USER)
+  role          Roles     
   accounts      Account[]
   sessions      Session[]
-  users         UsersModel[]
+  users         UsersModel?
   payments      UserSubscription[]
+  bloodBanks    BloodBanks?
+
   @@map("users")
 }
 

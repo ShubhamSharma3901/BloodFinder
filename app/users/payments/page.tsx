@@ -56,7 +56,7 @@ export default function Payments() {
       toast({
         variant: "destructive",
         title: "Oops!",
-        description: `${error}`,
+        description: `You Need to Sign-in Before Making Payments.`,
         duration: 2000,
       });
     } finally {

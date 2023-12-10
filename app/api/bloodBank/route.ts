@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+import { prisma } from "@/prisma";
 import { addBank, getBanks, updateBanks } from "@/servers/bloodBank";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -5,6 +7,9 @@ export async function POST(req: NextRequest) {
   try {
     const { name, coords, bloodTypes, address, phone, sectors } =
       await req.json();
+
+    const session = await auth();
+
     const response = await addBank({
       name,
       coords,
@@ -12,7 +17,14 @@ export async function POST(req: NextRequest) {
       address,
       phone,
       sectors,
+      sessionUserId: session?.user.id as string,
     });
+
+    if (response === null) {
+      return new NextResponse("You Cannot Create Multiple Entries", {
+        status: 501,
+      });
+    }
     return NextResponse.json({ response });
   } catch (err) {
     console.log(err);
@@ -42,6 +54,7 @@ export async function PUT(req: NextRequest) {
   try {
     const { name, coords, bloodTypes, address, phone, sectors } =
       await req.json();
+    const session = await auth();
     const response = await updateBanks({
       name,
       coords,
@@ -49,6 +62,7 @@ export async function PUT(req: NextRequest) {
       address,
       phone,
       sectors,
+      sessionUserId: session?.user.id as string,
     });
     return NextResponse.json({ response });
   } catch (err) {

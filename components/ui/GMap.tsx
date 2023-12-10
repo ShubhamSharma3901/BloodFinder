@@ -90,7 +90,6 @@ function Map({
     sectors: string;
   }>;
 }) {
-  console.log(banksCoords);
   const options = useMemo(() => {
     return {
       mapId: "614bf3814cdd19f4",
@@ -130,25 +129,24 @@ function Map({
           }}
         />
         {banksCoords.map((bank, id) => {
-          console.log(bank);
           return (
-            <>
-              <MarkerF
-                key={id}
-                position={bank?.coordinates}
-                animation={google.maps.Animation.DROP}
-                title={bank?.name}
-                clickable={true}
-                onClick={() => handleActiveMarker(id)}>
-                {activeMarker === id ? (
-                  <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                    <div>
-                      <p>{bank.name}</p>
-                    </div>
-                  </InfoWindowF>
-                ) : null}
-              </MarkerF>
-            </>
+            <MarkerF
+              key={id}
+              position={bank?.coordinates}
+              animation={google.maps.Animation.DROP}
+              title={bank?.name}
+              clickable={true}
+              onClick={() => handleActiveMarker(id)}>
+              {activeMarker === id ? (
+                <InfoWindowF
+                  onCloseClick={() => setActiveMarker(null)}
+                  key={id}>
+                  <div key={id}>
+                    <p key={id}>{bank.name}</p>
+                  </div>
+                </InfoWindowF>
+              ) : null}
+            </MarkerF>
           );
         })}
       </GoogleMap>

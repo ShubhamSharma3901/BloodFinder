@@ -1,5 +1,5 @@
+import { auth } from "@/auth";
 import { prisma } from "@/prisma";
-
 
 interface bankProps {
   name: string;
@@ -22,6 +22,7 @@ interface bankProps {
   };
   phone: number;
   sectors: string;
+  sessionUserId: string;
 }
 
 export async function addBank({
@@ -31,11 +32,34 @@ export async function addBank({
   address,
   phone,
   sectors,
+  sessionUserId,
 }: bankProps) {
   try {
+    const session = await auth();
+
+    const existingBank = await prisma.bloodBanks.findUnique({
+      where: {
+        sessionUserId: session?.user.id as string,
+      },
+    });
+
+    if (existingBank !== null) {
+      const res = await updateBanks({
+        name,
+        coords,
+        bloodTypes,
+        phone,
+        address,
+        sectors,
+        sessionUserId,
+      });
+      return res;
+    }
+
     await prisma.bloodBanks.create({
       data: {
         name: name,
+        sessionUserId: sessionUserId,
         coordinates: coords,
         bloodTypes: bloodTypes,
         address: address,
@@ -57,6 +81,7 @@ export async function getBanks({
   bloodType: string;
 }) {
   try {
+    const session = await auth();
     const bloodTypes = `bloodTypes.${bloodType}`;
     const response = await prisma.bloodBanks.findRaw({
       filter: {
@@ -79,9 +104,10 @@ export async function updateBanks({
   sectors,
 }: bankProps) {
   try {
+    const session = await auth();
     await prisma.bloodBanks.update({
       where: {
-        phone: phone,
+        sessionUserId: session?.user.id,
       },
       data: {
         name: name,
@@ -93,7 +119,9 @@ export async function updateBanks({
       },
     });
     const response = await prisma.bloodBanks.findUnique({
-      where: { phone: phone },
+      where: {
+        sessionUserId: session?.user.id,
+      },
     });
     return response;
   } catch (err) {
