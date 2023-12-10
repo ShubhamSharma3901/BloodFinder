@@ -61,7 +61,7 @@ export const { handlers, auth } = NextAuth({
           to: [identifier],
           subject: `Log into ${host}`,
           text: `Sign into ${host}`,
-          react: rct,
+          html: rct,
         });
       },
     }),
