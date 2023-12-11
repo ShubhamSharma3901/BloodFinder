@@ -5,7 +5,7 @@ import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { headers } from "next/headers";
 
-const settingsUrl = absoluteUrl("");
+const settingsUrl = absoluteUrl("/users/payments/success");
 
 export async function GET(req: Request) {
   try {
@@ -21,7 +21,7 @@ export async function GET(req: Request) {
 
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: settingsUrl,
-      cancel_url: settingsUrl,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/map`,
       payment_method_types: ["card"],
       mode: "payment",
       billing_address_collection: "required",

@@ -74,7 +74,7 @@ model UsersModel{
   name          String
   email         String
   phone         Int 
-  UID           Int             @unique
+  // UID           Int             @unique
   address       Address
   gender        String
   age           Int

@@ -12,6 +12,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./button";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import { sessionAction } from "@/app/actions";
 
 function SideBar() {
@@ -26,17 +35,36 @@ function SideBar() {
       console.log(session);
       if (session?.user.id) {
         buttonGroups.current = (
-          <Button
-            variant={"outline"}
-            onClick={async () => {
-              setIsLoading(true);
-              await signOut();
-              setIsLoading(false);
-            }}
-            disabled={isLoading}
-            className="border-red-200 hover:bg-red-100/20 w-full text-red-600 hover:text-red-700 shadow-sm rounded-xl  transition hover:shadow-inner">
-            {isLoading && <Loader2 className="animate-spin" />}Sign-Out
-          </Button>
+          <>
+            <Dialog>
+              <DialogTrigger>
+                <Button
+                  variant={"outline"}
+                  className="border-red-200 hover:bg-red-100/20 w-full text-red-600 hover:text-red-700 shadow-sm rounded-xl  transition hover:shadow-inner">
+                  <p className="text-[12px]">Sign-Out</p>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="absolute z-[200] phone:bg-white border border-red-400 text-red-600 rounded-2xl shadow-2xl">
+                <DialogHeader>
+                  <DialogTitle className="text-xl">{`${session.user.name}, Are You Sure ?`}</DialogTitle>
+                  <DialogDescription className="text-violet-900/70 py-3 flex flex-col gap-[1.65rem]">
+                    <Button
+                      variant={"outline"}
+                      onClick={async () => {
+                        setIsLoading(true);
+                        await signOut();
+                        setIsLoading(false);
+                      }}
+                      disabled={isLoading}
+                      className="border-red-200 hover:bg-red-100/20 w-full text-red-600 hover:text-red-700 shadow-sm rounded-xl  transition hover:shadow-inner">
+                      {isLoading && <Loader2 className="animate-spin" />}
+                      Sign-Out
+                    </Button>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          </>
         );
       } else {
         buttonGroups.current = (

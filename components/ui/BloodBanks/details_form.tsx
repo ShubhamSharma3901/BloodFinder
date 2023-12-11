@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,6 +40,8 @@ import action, { sessionAction } from "@/app/actions";
 import { toast } from "../use-toast";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { Edit, HomeIcon } from "lucide-react";
 
 function BankDetails() {
   const [libraries] = useState<Libraries>(["places"]);
@@ -159,6 +161,13 @@ function BankDetails() {
               })
               .then((data) => {
                 // console.log(data);
+                toast({
+                  title: "Submit Successful",
+                  description: data?.message,
+                  variant: "default",
+                  className: "bg-green-600 text-green-50",
+                });
+
                 action();
 
                 return data;
@@ -171,13 +180,6 @@ function BankDetails() {
                 });
               });
             return obj;
-          });
-
-          toast({
-            title: "Submit Successful",
-            description: "Details Submitted Successfully",
-            variant: "default",
-            className: "bg-green-600 text-green-50",
           });
         })
         .catch((error) => {
@@ -215,7 +217,7 @@ function BankDetails() {
     <>
       <div
         className={cn(
-          "flex-1 shadow-xl flex flex-col justify-center items-cente h-full"
+          "flex-1 shadow-xl flex flex-col justify-center items-center h-full"
         )}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -228,7 +230,7 @@ function BankDetails() {
                 </CardHeader>
                 <Image src={bloodDetailsImg} alt={"bloodDetailsImg"} />
               </section>
-              <section className="laptop:w-[60%] tablet:w-[90%] phone:w-full h-[100vh] laptop:p-[5rem] phone:p-5 gap-5 flex-col shadow-2xl bg-white rounded-tl-[2rem] rounded-bl-[2rem] flex justify-center items-center">
+              <section className="laptop:w-[60%] tablet:w-[90%] phone:w-full h-[100vh] laptop:p-[5rem] phone:p-5 gap-5 flex-col shadow-2xl bg-white rounded-tl-[2rem] rounded-tr-[2rem] flex justify-center items-center">
                 <div className="flex gap-5 w-full">
                   <div className="flex-1">
                     <FormField
@@ -467,14 +469,39 @@ function BankDetails() {
                       </FormItem>
                     )}
                   />
-                </div>
 
-                <Button
-                  type="submit"
-                  className="w-full p-3 rounded-xl mt-5"
-                  disabled={isSubmitting.current}>
-                  Submit
-                </Button>
+                  <Button
+                    type="submit"
+                    className="w-full p-3 rounded-xl mt-8"
+                    disabled={isSubmitting.current}>
+                    Submit
+                  </Button>
+                </div>
+                <div className="flex w-full">
+                  <Link
+                    href={`${process.env.NEXT_PUBLIC_APP_URL}`}
+                    className="w-full">
+                    <Button
+                      type="button"
+                      variant={"ghost"}
+                      className="w-full p-3 rounded-xl mt-5"
+                      disabled={isSubmitting.current}>
+                      <HomeIcon className="w-10 mr-1" />
+                      Go Home
+                    </Button>
+                  </Link>
+                  <Link
+                    href={`${process.env.NEXT_PUBLIC_APP_URL}/bloodBanks/detailsTable`}
+                    className="w-full">
+                    <Button
+                      type="button"
+                      variant={"ghost"}
+                      className="w-full p-3 rounded-xl mt-5">
+                      <Edit className="w-10 mr-1" />
+                      Edit Details
+                    </Button>
+                  </Link>
+                </div>
               </section>
             </main>
           </form>

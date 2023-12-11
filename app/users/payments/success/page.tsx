@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import TryAgain from "@/components/ui/BloodBanks/TryAgain";
-import Checkout from "@/components/ui/payments/Checkout";
-import { redirect } from "next/navigation";
+import PaymentSuccessful from "@/components/ui/payments/PaymentSuccessful";
 import React from "react";
 
 async function page() {
@@ -14,7 +13,7 @@ async function page() {
   }
   return (
     <div>
-      <Checkout />
+      <PaymentSuccessful />
     </div>
   );
 }

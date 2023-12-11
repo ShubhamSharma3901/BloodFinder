@@ -53,7 +53,10 @@ export async function addBank({
         sectors,
         sessionUserId,
       });
-      return res;
+      return {
+        response: res,
+        message: "Blood Bank Details Updated Successfully",
+      };
     }
 
     await prisma.bloodBanks.create({
@@ -68,7 +71,7 @@ export async function addBank({
       },
     });
     const allBanks = await prisma.bloodBanks.findMany();
-    return allBanks;
+    return { response: allBanks, message: "Blood Bank Added Successfully" };
   } catch (err) {
     console.log("Error in posting: ", err);
   }
@@ -87,6 +90,20 @@ export async function getBanks({
       filter: {
         "address.city": city,
         [bloodTypes]: { $gte: 1 },
+      },
+    });
+    return response;
+  } catch (err) {
+    console.log("Error: ", err);
+  }
+}
+
+export async function getCurrentBank() {
+  try {
+    const session = await auth();
+    const response = await prisma.bloodBanks.findUnique({
+      where: {
+        sessionUserId: session?.user.id,
       },
     });
     return response;

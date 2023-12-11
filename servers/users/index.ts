@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { prisma } from "@/prisma";
 import { NextResponse } from "next/server";
 
@@ -18,7 +19,7 @@ export interface userParams {
     month: number;
     year: number;
   };
-  UID: number;
+  userId: string;
 }
 
 export async function addUser({
@@ -29,9 +30,29 @@ export async function addUser({
   gender,
   age,
   dob,
-  UID,
+  userId,
 }: userParams) {
   try {
+    const existingUser = await prisma.usersModel.findUnique({
+      where: {
+        userId: userId,
+      },
+    });
+
+    if (existingUser !== null) {
+      const res = await updateUser({
+        name,
+        email,
+        phone,
+        address,
+        gender,
+        age,
+        dob,
+        userId,
+      });
+      return { response: res, message: "User updated successfully" };
+    }
+
     await prisma.usersModel.create({
       data: {
         name,
@@ -40,22 +61,22 @@ export async function addUser({
         gender,
         dob,
         address,
-        UID,
         age,
+        userId,
       },
     });
     const response = await prisma.usersModel.findMany({});
-    return response;
+    return { response, message: "User Added successfully" };
   } catch (err) {
     console.log(err);
   }
 }
 
-export async function getUser(UID: number) {
+export async function getUser(userId: string) {
   try {
     const response = await prisma.usersModel.findUnique({
       where: {
-        UID: UID,
+        userId: userId,
       },
     });
     console.log(response);
@@ -73,12 +94,12 @@ export async function updateUser({
   gender,
   age,
   dob,
-  UID,
+  userId,
 }: userParams) {
   try {
     const response = await prisma.usersModel.update({
       where: {
-        UID: UID,
+        userId: userId,
       },
       data: {
         name,
