@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Lottie from "lottie-react";
 import emailLottie from "@/public/Animation - 1702212382277.json";
 import Link from "next/link";

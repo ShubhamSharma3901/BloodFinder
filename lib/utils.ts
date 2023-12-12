@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { fetchBanks } from "@/app/actions";
 import { setKey, geocode, RequestType } from "react-geocode";
 import { Resend } from "resend";
 import MagicLinkEmail from "@/emails/MagicLinkEmail";

@@ -1,16 +1,11 @@
 "use client";
-import Image from "next/image";
-// import { checkout } from "@/checkout";
+
 import { loadStripe } from "@stripe/stripe-js";
-
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { redirect, useSearchParams } from "next/navigation";
-import { sessionAction } from "@/app/actions";
+
 import { Router } from "next/router";
 import { CheckoutUI } from "./CheckoutUI";
 

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import Lottie from "lottie-react";
 import errorLottie from "@/public/Animation - Error.json";
 import Link from "next/link";

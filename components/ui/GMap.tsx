@@ -4,16 +4,11 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   useLoadScript,
   GoogleMap,
-  Marker,
   Libraries,
-  InfoBox,
-  InfoWindow,
   MarkerF,
   InfoWindowF,
 } from "@react-google-maps/api";
 import { useOrigin } from "@/lib/contexts";
-import bloodBank from "@/public/bloodBank.jpg";
-import { Circle } from "lucide-react";
 
 interface MapProps {
   origin: { lat: number; lng: number };
