@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { auth } from "@/auth";
 import { prisma } from "@/prisma";
 import { addBank, getCurrentBank, updateBanks } from "@/servers/bloodBank";
