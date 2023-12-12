@@ -12,7 +12,7 @@ const PaymentSuccessful = ({ trnsID }: { trnsID: string }) => {
         <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
         <div className="bg-gradient-to-b from-blue-50 to-transparent w-full h-full absolute top-0 left-0 z-[-1]"></div>
 
-        <div className="border laptop:h-[60%] laptop:w-[40%] tablet:w-[60%] phone:w-[90%] phone:h-fit phone:pb-10 rounded-2xl shadow-xl flex flex-col justify-center items-center gap-10 bg-white">
+        <div className="border laptop:h-fit laptop:w-[40%] tablet:w-[60%] phone:w-[90%] phone:h-fit phone:pb-10 rounded-2xl shadow-xl flex flex-col justify-center items-center gap-10 bg-white">
           <div className="tablet:w-full phone:w-full phone:h-fit tablet:h-full shadow-inner rounded-xl bg-teal-50">
             <Lottie animationData={PaySuccess} loop={true} />
           </div>
