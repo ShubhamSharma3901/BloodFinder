@@ -100,17 +100,17 @@ function BankTable() {
         <TableRow>
           <TableCell className="font-medium">{bank?.name}</TableCell>
           <TableCell>{bank?.phone}</TableCell>
-          <TableCell>{bank?.address.street}</TableCell>
-          <TableCell>{bank?.address.city}</TableCell>
-          <TableCell>{bank?.address.state}</TableCell>
-          <TableCell>{bank?.address.zip}</TableCell>
-          <TableCell>{bank?.bloodTypes.Ap}</TableCell>
-          <TableCell>{bank?.bloodTypes.An}</TableCell>
-          <TableCell>{bank?.bloodTypes.Bp}</TableCell>
-          <TableCell>{bank?.bloodTypes.Bn}</TableCell>
-          <TableCell>{bank?.bloodTypes.ABp}</TableCell>
-          <TableCell>{bank?.bloodTypes.ABn}</TableCell>
-          <TableCell>{bank?.bloodTypes.Op}</TableCell>
+          <TableCell>{bank?.address?.street}</TableCell>
+          <TableCell>{bank?.address?.city}</TableCell>
+          <TableCell>{bank?.address?.state}</TableCell>
+          <TableCell>{bank?.address?.zip}</TableCell>
+          <TableCell>{bank?.bloodTypes?.Ap}</TableCell>
+          <TableCell>{bank?.bloodTypes?.An}</TableCell>
+          <TableCell>{bank?.bloodTypes?.Bp}</TableCell>
+          <TableCell>{bank?.bloodTypes?.Bn}</TableCell>
+          <TableCell>{bank?.bloodTypes?.ABp}</TableCell>
+          <TableCell>{bank?.bloodTypes?.ABn}</TableCell>
+          <TableCell>{bank?.bloodTypes?.Op}</TableCell>
 
           <TableCell className="text-right">{bank?.bloodTypes.On}</TableCell>
         </TableRow>
