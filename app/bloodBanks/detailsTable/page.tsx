@@ -16,7 +16,7 @@ async function page() {
 
   return (
     <div>
-      <BankTable />
+      <BankTable id={session.user.id} />
     </div>
   );
 }

@@ -38,17 +38,19 @@ interface bankProps {
   sessionUserId: string;
 }
 
-function BankTable() {
+function BankTable({ id }: { id: string }) {
   const [bank, setBank] = useState<bankProps>();
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_APP_URL}/api/bloodBank/details`)
+      .get(`${process.env.NEXT_PUBLIC_APP_URL}/api/bloodBank/details`, {
+        headers: { id: id },
+      })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBank(data.data);
       });
-  }, []);
+  }, [id]);
   console.log(bank);
 
   return (
