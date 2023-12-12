@@ -14,6 +14,8 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
+import logoIcon from "@/public/logo.png";
+
 interface MagicLinkEmailProps {
   url?: string;
   host?: string;
@@ -29,26 +31,19 @@ export const MagicLinkEmail = ({ url, host }: MagicLinkEmailProps) => (
     <Preview>Your login code for {host as string}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/linear-logo.png`}
-          width="42"
-          height="42"
-          alt="Linear"
-          style={logo}
-        />
-        <Heading style={heading}>Your login code for Linear</Heading>
+        <Heading style={heading}>Your Magic Link for BloodFinder</Heading>
         <Section style={buttonContainer}>
           <Button style={button} href={url}>
-            Login to Linear
+            Login to BloodFinder
           </Button>
         </Section>
         <Text style={paragraph}>
-          This link and code will only be valid for the next 5 minutes. If the
-          link does not work, you can use the login verification code directly:
+          This link and code will only be valid for the next 24 Hrs. If the link
+          does not work, you can use the login with Google instead:
         </Text>
         <Hr style={hr} />
         <Link href={url} style={reportLink}>
-          Linear
+          BloodFinder
         </Link>
       </Container>
     </Body>
@@ -96,7 +91,7 @@ const buttonContainer = {
 };
 
 const button = {
-  backgroundColor: "#5e6ad2",
+  backgroundColor: "rgb(220 38 38 / 1)",
   borderRadius: "3px",
   fontWeight: "600",
   color: "#fff",

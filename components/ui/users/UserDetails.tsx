@@ -21,6 +21,8 @@ import {
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../form";
 import axios from "axios";
 import { toast } from "../use-toast";
+import Link from "next/link";
+import { HomeIcon, LayoutDashboard } from "lucide-react";
 
 function UserDetailsForm() {
   const phoneRegex = new RegExp(
@@ -113,17 +115,19 @@ function UserDetailsForm() {
   };
 
   return (
-    <main className="flex justify-center items-center  h-[100vh] bg-[#ffdde3]">
-      <section className="w-[40%] ">
+    <main className="flex justify-center items-center phone:flex-col laptop:flex-row laptop:h-[100vh] phone:h-screen bg-[#ffdde3]">
+      <section className="laptop:w-[40%] phone:w-[60%] ">
         <Image src={UserDetailImg} alt="dp" />
       </section>
 
-      <section className="w-[60%] bg-white/80 h-full rounded-tl-[2rem] rounded-bl-[2rem] flex justify-center items-center">
+      <section className="laptop:w-[60%] phone:w-full tablet:px-[5rem] laptop:px-0 bg-white/80 h-full rounded-tl-[2rem] phone:rounded-tr-[2rem] laptop:rounded-bl-[2rem] flex justify-center items-center phone:py-7 laptop:py-0">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(submitData)}
-            className="w-[60%] flex flex-col justify-center items-center gap-5">
-            <p className="text-4xl font-bold py-2">BloodFinder</p>
+            className="laptop:w-[60%] phone:w-[80%] flex flex-col justify-center items-center gap-5">
+            <p className="laptop:text-4xl phone:text-2xl font-bold py-2 ">
+              Enter Your Details
+            </p>
             <div className="flex flex-col gap-1 w-full">
               <Input
                 type="text"
@@ -329,10 +333,21 @@ function UserDetailsForm() {
               />
             </div>
 
-            <div className="w-full">
+            <div className="w-full flex justify-center items-center gap-5">
               <Button type="submit" className="w-full py-[1.25rem] rounded-xl">
                 Submit
               </Button>
+              <Link
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/dashboard/map`}
+                className="w-full">
+                <Button
+                  type="button"
+                  variant={"outline"}
+                  className="w-full p-3 rounded-xl">
+                  <LayoutDashboard className="w-10 mr-1" />
+                  Dashboard
+                </Button>
+              </Link>
             </div>
           </form>
         </Form>

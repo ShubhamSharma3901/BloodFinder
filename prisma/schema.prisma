@@ -148,8 +148,9 @@ model VerificationToken {
 // --------------------------------Stripe--------------------------------
 model UserSubscription {
   id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @unique @db.ObjectId
+  userId    String    @db.ObjectId
   stripePriceId          String?   @map(name: "stripe_price_id")
   status String? @map(name: "status")
   users  User @relation(fields: [userId],references: [id])
+  date   DateTime   @default(now()) 
 }

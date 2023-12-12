@@ -116,3 +116,20 @@ export async function updateUser({
     return err;
   }
 }
+
+export async function getCurrentTransactionId() {
+  try {
+    const session = await auth();
+    const response = await prisma.userSubscription.findMany({
+      where: {
+        userId: session?.user.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+    return response[response.length - 1].id;
+  } catch (err) {
+    return err;
+  }
+}

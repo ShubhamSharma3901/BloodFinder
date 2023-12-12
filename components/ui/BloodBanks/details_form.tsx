@@ -41,7 +41,7 @@ import { toast } from "../use-toast";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Edit, HomeIcon } from "lucide-react";
+import { Edit, EyeIcon, HomeIcon } from "lucide-react";
 
 function BankDetails() {
   const [libraries] = useState<Libraries>(["places"]);
@@ -497,8 +497,8 @@ function BankDetails() {
                       type="button"
                       variant={"ghost"}
                       className="w-full p-3 rounded-xl mt-5">
-                      <Edit className="w-10 mr-1" />
-                      Edit Details
+                      <EyeIcon className="w-10 mr-1" />
+                      Show Details
                     </Button>
                   </Link>
                 </div>

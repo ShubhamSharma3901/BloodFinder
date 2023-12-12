@@ -12,6 +12,7 @@ import { toast } from "@/components/ui/use-toast";
 import { redirect, useSearchParams } from "next/navigation";
 import { sessionAction } from "@/app/actions";
 import { Router } from "next/router";
+import { CheckoutUI } from "./CheckoutUI";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
@@ -69,5 +70,5 @@ export default function Checkout() {
     }
   };
 
-  return <Button onClick={onSubscribe}>Checkout</Button>;
+  return <CheckoutUI onSubscribe={onSubscribe} />;
 }
