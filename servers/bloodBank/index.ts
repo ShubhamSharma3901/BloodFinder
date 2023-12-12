@@ -103,7 +103,7 @@ export async function getCurrentBank() {
     const session = await auth();
     const response = await prisma.bloodBanks.findUnique({
       where: {
-        sessionUserId: session?.user.id,
+        sessionUserId: session?.user.id as string,
       },
     });
     return response;

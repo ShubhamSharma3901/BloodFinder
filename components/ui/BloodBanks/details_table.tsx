@@ -45,7 +45,7 @@ function BankTable() {
     axios
       .get(`${process.env.NEXT_PUBLIC_APP_URL}/api/bloodBank/details`)
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setBank(data.data);
       });
   }, []);
