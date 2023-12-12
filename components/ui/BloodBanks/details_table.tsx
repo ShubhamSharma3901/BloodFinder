@@ -112,7 +112,7 @@ function BankTable() {
           <TableCell>{bank?.bloodTypes?.ABn}</TableCell>
           <TableCell>{bank?.bloodTypes?.Op}</TableCell>
 
-          <TableCell className="text-right">{bank?.bloodTypes.On}</TableCell>
+          <TableCell className="text-right">{bank?.bloodTypes?.On}</TableCell>
         </TableRow>
       </TableBody>
     </Table>
