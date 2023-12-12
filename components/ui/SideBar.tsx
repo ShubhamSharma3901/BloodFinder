@@ -11,6 +11,7 @@ import logo from "@/public/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./button";
+import loadingLottie from "@/public/Loader.json";
 
 import {
   Dialog,
@@ -22,6 +23,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { sessionAction } from "@/app/actions";
+import Lottie from "lottie-react";
 
 function SideBar() {
   const { isLoad } = useOrigin();
@@ -126,10 +128,14 @@ function SideBar() {
       <div className={cn("bg-white", !isLoad && "hidden")}>
         <BanksList />
       </div>
-      <div className={cn("", isLoad && "flex")}>
+      <div
+        className={cn(
+          "flex flex-col justify-center items-center ",
+          isLoad && "flex"
+        )}>
         {!isLoad && (
-          <div className="w-full flex flex-col justify-center items-center p-5">
-            <Loader2 className="h-[4rem] w-[4rem] animate-spin text-red-600 " />
+          <div className="w-[50%] flex flex-col justify-center items-center p-5">
+            <Lottie animationData={loadingLottie} />
           </div>
         )}
       </div>
