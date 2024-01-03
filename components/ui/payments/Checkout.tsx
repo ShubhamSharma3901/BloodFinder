@@ -18,8 +18,6 @@ export default function Checkout() {
   const name = searchParams.get("name");
   const bloodType = searchParams.get("bloodType");
 
-  const router = Router;
-
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
 

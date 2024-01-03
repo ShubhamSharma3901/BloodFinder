@@ -81,5 +81,6 @@ export const { handlers, auth } = NextAuth({
     signIn: `${process.env.NEXT_PUBLIC_APP_URL}/users/sign-in`,
     verifyRequest: `${process.env.NEXT_PUBLIC_APP_URL}/users/verify-request`,
     error: `/users/error`,
+    newUser: `${process.env.NEXT_PUBLIC_APP_URL}/users/details`,
   },
 });
